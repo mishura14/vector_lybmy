@@ -31,3 +31,9 @@ void* get(Vector *v, size_t index);
 
 // метод set перезаписывающий элемент по индексу
 void set(Vector *v, size_t index,const void *value);
+
+// метод erase удалающий элемент по индексу
+void erase(Vector *v, size_t index);
+
+// insert вставка по индексу
+void insert(Vector *v,size_t index,const void *value);

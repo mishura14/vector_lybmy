@@ -85,9 +85,54 @@ void set(Vector *v, size_t index,const void *value)
 }
 
 // метод erase удалающий элемент по индексу
+void erase(Vector *v, size_t index)
+{
+    if (index >= v->length) {
+        return; // защита от выхода за границы
+    }
+
+    // если удаляем не последний элемент — сдвигаем
+    if (index < v->length - 1) {
+        memmove(
+            (char *)v->data + index * v->element_size,
+            (char *)v->data + (index + 1) * v->element_size,
+            (v->length - index - 1) * v->element_size
+        );
+    }
+
+    v->length--;
+}
 
 // метод clear очищающий элементы вектора но не удалая его самово
+
 
 // метод reverse увеличивающий capacity вектора
 
 // insert вставка по индексу
+void insert(Vector *v,size_t index,const void *value)
+{
+    if (index > v->length){
+        return;
+    }
+    if(v->length >= v->capacity){
+        v->capacity = (v->capacity == 0) ? 2 : v->capacity * 2;
+        void *new_data = realloc(v->data, v->capacity * v->element_size);
+        if(!new_data){
+            perror("realloc");
+            return;
+        }
+        v->data = new_data;
+    }
+    memmove(
+        (char *)v->data + (index + 1) * v->element_size,
+        (char *)v->data + index * v->element_size,
+        (v->length - index) * v->element_size
+    );
+    memcpy(
+        (char *)v->data + index * v->element_size,
+        value,
+        v->element_size
+    );
+    v->length++;
+
+}

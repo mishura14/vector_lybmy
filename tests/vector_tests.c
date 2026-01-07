@@ -87,6 +87,31 @@ void test_set(void){
     assert(*value_set == 1000);
     printf("✔ test_set passed\n");
 }
+//тест метода erase
+void test_erase(void){
+    Vector *v = vector_create(sizeof(int), 10);
+    for(int i = 0;i < 10;i++){
+        append(v,&i);
+    }
+    erase(v,0);
+    assert(v->length == 9);
+    int *value = get(v,0);
+    assert(*value == 1);
+    free_vector(v);
+    printf("✔ test_erase passed\n");
+}
+//тест метода insert
+void test_insert(void){
+    Vector *v = vector_create(sizeof(int), 20);
+    for(int i = 0;i < 20;i++){
+        append(v,&i);
+    }
+    int value = 1000;
+    insert(v,10,&value);
+    int *value_insert = get(v,10);
+    assert(*value_insert == 1000);
+    printf("✔ test_insert passed\n");
+}
 
 
 int main(void) {
@@ -96,6 +121,8 @@ int main(void) {
     test_pop();
     test_get();
     test_set();
+    test_erase();
+    test_insert();
 
     printf("\n✅ ALL TESTS PASSED\n");
     return 0;
